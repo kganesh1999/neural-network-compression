@@ -6,28 +6,15 @@ Pytorch implementation of HRank.
 
 Framework of HRank. In the left column, we ﬁrst use images to run through the convolutional layers to get the feature maps. In the middle column, we then estimate the rank of each feature map, which is used as the criteria for pruning. The right column shows the pruning (the red ﬁlters), and ﬁne-tuning where the green ﬁlters are updated and the blue ﬁlters are frozen.
 
+### Experimentation
+
+Firstly, we trained VGG-16 network in GPU and compressed the model upto 21%, 30% and 45% to evaluate the performance with respect to inference time speed up and accuracy on test data. Also, the count of network parameters (such as weights and biases) are included in observation. Furthermore, the latter compressed VGG-16 models are deployed into embedded GPU processor (NVIDIA Xavier GPU) for inference. This deployment provided insights on the significance of neural network compression in terms of inference time however, with compromise in model accuracy.
 
 ## Running Code
 
 In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code has been tested by Python 3.7, Pytorch 1.2 and CUDA 10.02 on Ubuntu 18.
 
-
-### Rank Generation
-
-```shell
-python rank_generation.py \
---resume [pre-trained model dir] \
---arch [model arch name] \
---limit [batch numbers] \
---gpu [gpu_id]
-
-```
-
-
-
-### Experimentation
-
-Firstly, we trained VGG-16 network in GPU and compressed the model upto 21%, 30% and 45% to evaluate the performance with respect to inference time speed up and accuracy on test data. Also, the count of network parameters (such as weights and biases) are included in observation. Furthermore, the latter compressed VGG-16 models are deployed into embedded GPU processor (NVIDIA Xavier GPU) for inference. This deployment provided insights on the significance of neural network compression in terms of inference time however, with compromise in model accuracy. 
+### Model Training
 
 ```shell
 python main.py \
@@ -45,6 +32,17 @@ After training, checkpoints and loggers can be found in the `job_dir`. The prune
 python cal_flops_params.py \
 --arch resnet_56_convwise \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]
+```
+
+### Generate filter rank
+
+```shell
+python rank_generation.py \
+--resume [pre-trained model dir] \
+--arch [model arch name] \
+--limit [batch numbers] \
+--gpu [gpu_id]
+
 ```
 
 ### Evaluate Final Performance
