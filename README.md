@@ -14,7 +14,7 @@ Firstly, we trained VGG-16 network in GPU and compressed the model upto 21%, 30%
 
 In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code has been tested by Python 3.7, Pytorch 1.2 and CUDA 10.02 on Ubuntu 18.
 
-### Model Training
+#### Model Training
 
 ```shell
 python main.py \
@@ -27,14 +27,14 @@ python main.py \
 
 After training, checkpoints and loggers can be found in the `job_dir`. The pruned model will be named `[arch]_cov[i]` for stage i, and therefore the final pruned model is the one with largest `i`.
 
-### Get FLOPS & Params
+#### Get FLOPS & Params
 ```shell
 python cal_flops_params.py \
 --arch resnet_56_convwise \
 --compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]
 ```
 
-### Generate filter rank
+#### Generate filter rank
 
 ```shell
 python rank_generation.py \
@@ -45,7 +45,7 @@ python rank_generation.py \
 
 ```
 
-### Evaluate Final Performance
+#### Evaluate Final Performance
 ```shell
 python evaluate.py \
 --dataset [dataset name] \
