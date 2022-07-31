@@ -6,22 +6,10 @@ Pytorch implementation of HRank.
 
 Framework of HRank. In the left column, we ﬁrst use images to run through the convolutional layers to get the feature maps. In the middle column, we then estimate the rank of each feature map, which is used as the criteria for pruning. The right column shows the pruning (the red ﬁlters), and ﬁne-tuning where the green ﬁlters are updated and the blue ﬁlters are frozen.
 
-## Citation
-If you find HRank useful in your research, please consider citing:
-
-```
-@inproceedings{lin2020hrank,
-  title={HRank: Filter Pruning using High-Rank Feature Map},
-  author={Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Shao, Ling},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages={1529--1538},
-  year={2020}
-}
-```
 
 ## Running Code
 
-In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code has been tested by Python 3.7, Pytorch 1.2 and CUDA 10.02 on Ubuntu 21.04.
+In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code has been tested by Python 3.7, Pytorch 1.2 and CUDA 10.02 on Ubuntu 18.
 
 
 ### Rank Generation
@@ -107,3 +95,19 @@ optional arguments:
     				default: vgg_16_bn
 				Optional: resnet_50, vgg_16_bn, resnet_56, resnet_110, densenet_40, googlenet
 ```
+
+## Citation
+
+
+```
+@inproceedings{lin2020hrank,
+  title={HRank: Filter Pruning using High-Rank Feature Map},
+  author={Lin, Mingbao and Ji, Rongrong and Wang, Yan and Zhang, Yichen and Zhang, Baochang and Tian, Yonghong and Shao, Ling},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages={1529--1538},
+  year={2020}
+}
+```
+
+## Github Link
+Here's the PyTorch implementation of H-Rank compression - https://github.com/lmbxmu/HRank
