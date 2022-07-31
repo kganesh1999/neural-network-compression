@@ -27,14 +27,17 @@ python rank_generation.py \
 
 ### Model Training
 
-For the ease of reproducibility. we provide some of the experimental results and the corresponding pruned rate of every layer as belows:
-#### Attention! The actual pruning rates are much higher than these presented in the paper since we do not count the next-layer channel removal (For example, if 50 filters are removed in the first layer, then the corresponding 50 channels in the second-layer filters should be removed as well).
+For the experimentation, we trained VGG-16 network in GPU and compressed the model upto 21%, 30% and 45% to evaluate the performance with respect to inference time speed up and accuracy on test data. Also, the count of network parameters (such as weights and biases) are included in observation. 
 
-##### 1. VGG-16
-
-|  Params      | Flops         | Accuracy |
-|--------------|---------------|----------|
-| 2.64M(82.1%) | 108.61M(65.3%)| 92.34%   | 
+|Compression Rate (%)|Inference Time(s)|Speed Up|    Params    | Flops    | Accuracy (Top-1) | Accuracy (Top-5)|
+|--------------------|-----------------|--------|--------------|----------|------------------|-----------------|
+| No compression     | 0.115           | -      | 15.82M       | 1257.2M  | 71.27%           | 90.63%          |
+|--------------------|-----------------|--------|--------------|----------|------------------|-----------------|
+| 21                 | 0.084           | 1.3x   | 3.59M        | 524.7M   | 72.09%           | 91.53%          |
+|--------------------|-----------------|--------|--------------|----------|------------------|-----------------|
+| 30                 | 0.089           | 1.29x  | 3.33M        | 419.1M   | 71.98%           | 91.43%          |
+|--------------------|-----------------|--------|--------------|----------|------------------|-----------------|
+| 45                 | 0.044           | 2.6x   | 2.73M        | 267.8M   | 70.8%            | 91.36%          |
 
 ```shell
 python main.py \
@@ -110,4 +113,4 @@ optional arguments:
 ```
 
 ## Github Link
-Here's the PyTorch implementation of H-Rank compression - https://github.com/lmbxmu/HRank
+Here's the PyTorch implementation of H-Rank compression by the authors - https://github.com/lmbxmu/HRank
