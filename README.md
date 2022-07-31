@@ -6,11 +6,11 @@ Pytorch implementation of HRank.
 
 Framework of HRank. In the left column, we ﬁrst use images to run through the convolutional layers to get the feature maps. In the middle column, we then estimate the rank of each feature map, which is used as the criteria for pruning. The right column shows the pruning (the red ﬁlters), and ﬁne-tuning where the green ﬁlters are updated and the blue ﬁlters are frozen.
 
-### Experimentation
+## Experimentation
 
-Firstly, we trained VGG-16 network in GPU and compressed the model upto 21%, 30% and 45% to evaluate the performance with respect to inference time speed up and accuracy on test data. Also, the count of network parameters (such as weights and biases) are included in observation. Furthermore, the latter compressed VGG-16 models are deployed into embedded GPU processor (NVIDIA Xavier GPU) for inference. This deployment provided insights on the significance of neural network compression in terms of inference time however, with compromise in model accuracy.
+Firstly, we trained VGG-16 network with CIFAR-100 dataset in GeForce GTX 1080 machine and compressed the model upto 21%, 30% and 45% to evaluate the performance with respect to inference time speed up and accuracy on test data. Also, the count of network parameters (such as weights and biases) are included in observation. Furthermore, the latter compressed VGG-16 models are deployed into embedded GPU processor (NVIDIA Xavier GPU) for inference. This deployment provided insights on the significance of neural network compression in terms of inference time however, with compromise in model accuracy.
 
-## Running Code
+### Running Code
 
 In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code has been tested by Python 3.7, Pytorch 1.2 and CUDA 10.02 on Ubuntu 18.
 
@@ -18,10 +18,10 @@ In this code, you can run our models on CIFAR-100 and ImageNet dataset. The code
 
 ```shell
 python main.py \
---job_dir ./result/vgg_16_bn/[folder name] \
+--job_dir ./results-cifar100/test_Compre45 \
 --resume [pre-trained model dir] \
 --arch vgg_16_bn \
---compress_rate [0.95]+[0.5]*6+[0.9]*4+[0.8]*2 \
+--compress_rate [0.45]*7+[0.78]*5 \
 --gpu [gpu_id]
 ```
 
@@ -30,8 +30,8 @@ After training, checkpoints and loggers can be found in the `job_dir`. The prune
 #### Get FLOPS & Params
 ```shell
 python cal_flops_params.py \
---arch resnet_56_convwise \
---compress_rate [0.1]+[0.60]*35+[0.0]*2+[0.6]*6+[0.4]*3+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]+[0.1]+[0.4]
+--arch vgg_16_bn \
+--compress_rate [0.45]*7+[0.78]*5
 ```
 
 #### Generate filter rank
@@ -81,8 +81,8 @@ optional arguments:
     --data_dir			dataset directory
     				default='./data'
     --dataset			dataset name
-    				default: cifar10
-    				Optional: cifar10', imagenet
+    				default: cifar100
+    				Optional: cifar100', imagenet
     --lr			initial learning rate
     				default: 0.01
     --lr_decay_step		learning rate decay step
